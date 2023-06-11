@@ -13,4 +13,12 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Services\Hostel.Infrastructure\Hostel.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
