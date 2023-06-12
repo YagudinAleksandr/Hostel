@@ -4,6 +4,9 @@ using System;
 
 namespace Hostel.DAL.Entities
 {
+    /// <summary>
+    /// Сущность пользователя
+    /// </summary>
     public class UserEntity: IdentityUser, IUserEntity
     {
         public string Fullname { get; set; }

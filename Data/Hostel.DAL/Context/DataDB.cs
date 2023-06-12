@@ -1,14 +1,12 @@
 ﻿using Hostel.DAL.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hostel.DAL.Context
 {
+    /// <summary>
+    /// Контекст базы данных
+    /// </summary>
     public class DataDB : IdentityDbContext<UserEntity>
     {
         public DataDB(DbContextOptions options)
