@@ -2,21 +2,14 @@ using Hostel.DAL.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Hostel.WebAPI
 {
@@ -46,7 +39,7 @@ namespace Hostel.WebAPI
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<DataDB>();
 
-            var jwtSettings = Configuration.GetSection("JwtSettings");
+            var jwtSettings = Configuration.GetSection("JWTSettings");
             services.AddAuthentication(opt =>
             {
                 opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -67,6 +60,7 @@ namespace Hostel.WebAPI
             });
 
             services.AddControllers();
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Hostel.WebAPI", Version = "v1" });
@@ -84,9 +78,13 @@ namespace Hostel.WebAPI
             }
 
             app.UseHttpsRedirection();
+            app.UseCors("CorsPolicy");
+
+            app.UseStaticFiles();
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
