@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\Hostel.DAL.SqlServer\Hostel.DAL.SqlServer.csproj" />
     <ProjectReference Include="..\..\Data\Hostel.DAL\Hostel.DAL.csproj" />
+    <ProjectReference Include="..\..\Domain\Hostel.Domain.Security\Hostel.Domain.Security.csproj" />
     <ProjectReference Include="..\Hostel.Infrastructure\Hostel.Infrastructure.csproj" />
   </ItemGroup>
 

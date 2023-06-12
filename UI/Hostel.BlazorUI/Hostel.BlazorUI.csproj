@@ -12,6 +12,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Domain\Hostel.Domain.DTO\Hostel.Domain.DTO.csproj" />
+    <ProjectReference Include="..\..\Domain\Hostel.Domain.Security\Hostel.Domain.Security.csproj" />
+    <ProjectReference Include="..\..\Services\Hostel.WebAPIClient\Hostel.WebAPIClient.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
   </ItemGroup>
 
