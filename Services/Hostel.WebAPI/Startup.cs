@@ -1,4 +1,5 @@
 using Hostel.DAL.Context;
+using Hostel.DAL.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,7 +37,7 @@ namespace Hostel.WebAPI
 
             services.AddDbContext<DataDB>(opt => opt.UseSqlServer(Configuration.GetConnectionString("sqlConnection"), m => m.MigrationsAssembly("Hostel.DAL.SqlServer")));
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<UserEntity, IdentityRole>()
                 .AddEntityFrameworkStores<DataDB>();
 
             var jwtSettings = Configuration.GetSection("JWTSettings");
