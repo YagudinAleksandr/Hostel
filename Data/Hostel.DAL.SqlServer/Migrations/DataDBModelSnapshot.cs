@@ -100,6 +100,29 @@ namespace Hostel.DAL.SqlServer.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "e3340dae-9000-4b7b-92e2-f2e9d03eafe6",
+                            CreatedAt = new DateTimeOffset(new DateTime(2023, 6, 14, 17, 52, 58, 799, DateTimeKind.Unspecified).AddTicks(7570), new TimeSpan(0, 0, 0, 0, 0)),
+                            Email = "admin@supply.ru",
+                            EmailConfirmed = true,
+                            Fullname = "Администратор",
+                            IsActive = true,
+                            IsAdmin = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "admin@supply.ru",
+                            NormalizedUserName = "Администратор",
+                            PasswordHash = "AQAAAAEAACcQAAAAEL5X1BM4IoM/SPLkSyvQb7I4VGq9MuV5JYPDcRJ0EigsSsikQddC3dZjPWAGHKvzuQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "849e1f59-d033-443b-b204-a37ac45411d4",
+                            TwoFactorEnabled = false,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2023, 6, 14, 17, 52, 58, 799, DateTimeKind.Unspecified).AddTicks(8278), new TimeSpan(0, 0, 0, 0, 0)),
+                            UserName = "admin@supply.ru"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
