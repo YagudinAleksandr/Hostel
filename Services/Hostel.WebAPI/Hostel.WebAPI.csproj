@@ -16,8 +16,15 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\Hostel.DAL.SqlServer\Hostel.DAL.SqlServer.csproj" />
     <ProjectReference Include="..\..\Data\Hostel.DAL\Hostel.DAL.csproj" />
+    <ProjectReference Include="..\..\Domain\Hostel.Domain.DTO\Hostel.Domain.DTO.csproj" />
     <ProjectReference Include="..\..\Domain\Hostel.Domain.Security\Hostel.Domain.Security.csproj" />
     <ProjectReference Include="..\Hostel.Infrastructure\Hostel.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Infrastructure\" />
+    <Folder Include="wwwroot\profileImages\" />
+    <Folder Include="wwwroot\documents\" />
   </ItemGroup>
 
 </Project>
