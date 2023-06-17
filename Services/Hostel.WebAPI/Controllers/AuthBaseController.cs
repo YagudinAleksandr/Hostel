@@ -34,6 +34,11 @@ namespace Hostel.WebAPI.Controllers
         #endregion
 
         #region Публичные методы
+        /// <summary>
+        /// Метод входа
+        /// </summary>
+        /// <param name="userEntity">Сущность авторизированного пользователя</param>
+        /// <returns>Результат авторизации</returns>
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody]UserLoginRequestDTO userEntity)
         {
