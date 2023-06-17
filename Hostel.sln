@@ -29,6 +29,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hostel.Domain.Office", "Dom
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hostel.Wpf", "UI\Hostel.Wpf\Hostel.Wpf.csproj", "{FCE14FDD-0E52-4C84-9148-C2EB0FA26EFD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hostel.BlazorUI", "UI\Hostel.BlazorUI\Hostel.BlazorUI.csproj", "{5689BDEE-AA04-47B6-8898-8D9B9BA197DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{FCE14FDD-0E52-4C84-9148-C2EB0FA26EFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCE14FDD-0E52-4C84-9148-C2EB0FA26EFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCE14FDD-0E52-4C84-9148-C2EB0FA26EFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5689BDEE-AA04-47B6-8898-8D9B9BA197DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5689BDEE-AA04-47B6-8898-8D9B9BA197DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5689BDEE-AA04-47B6-8898-8D9B9BA197DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5689BDEE-AA04-47B6-8898-8D9B9BA197DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,6 +91,7 @@ Global
 		{4347F5D4-C995-4780-AD65-6AFE0486EC14} = {EF6D150C-A95E-46AA-BE86-2800A6CEAA50}
 		{9E847E0F-3036-45D3-85D3-7F1CDFD5928F} = {EF6D150C-A95E-46AA-BE86-2800A6CEAA50}
 		{FCE14FDD-0E52-4C84-9148-C2EB0FA26EFD} = {DD0AF49D-3561-493C-BA63-A63596620A52}
+		{5689BDEE-AA04-47B6-8898-8D9B9BA197DC} = {DD0AF49D-3561-493C-BA63-A63596620A52}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {087886A3-303E-4C53-8C79-6423E8267165}
