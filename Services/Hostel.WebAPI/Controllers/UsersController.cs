@@ -142,10 +142,33 @@ namespace Hostel.WebAPI.Controllers
             user.Fullname = userUpdate.Fullname;
             user.UpdatedAt = DateTime.UtcNow;
 
-            var result = await repository.UpdateAsync(user);
+            if (string.IsNullOrEmpty(userUpdate.Password))
+            {
+                var result = await repository.UpdateAsync(user);
 
-            if (result.Succeeded) return Ok("Пользователь обновлен успешно!");
-            else return BadRequest(result.Errors);
+                if (result.Succeeded) return Ok("Пользователь обновлен успешно!");
+                else return BadRequest(result.Errors);
+            }
+            else
+            {
+                var passwordValidator = HttpContext.RequestServices.GetService(typeof(IPasswordValidator<UserEntity>)) as IPasswordValidator<UserEntity>;
+                var passwordHasher = HttpContext.RequestServices.GetService(typeof(IPasswordHasher<UserEntity>)) as IPasswordHasher<UserEntity>;
+
+                IdentityResult identityResult = await passwordValidator.ValidateAsync(repository, user, userUpdate.Password);
+                if(identityResult.Succeeded)
+                {
+                    user.PasswordHash = passwordHasher.HashPassword(user, userUpdate.Password);
+
+                    await repository.UpdateAsync(user);
+
+                    return Ok("Пользователь обновлен успешно!");
+                }
+                else
+                {
+                    return BadRequest(identityResult.Errors);
+                }
+            }
+            
         }
         #endregion
     }
