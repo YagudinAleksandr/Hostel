@@ -14,6 +14,9 @@ using Hostel.Domain.Security;
 
 namespace Hostel.WebAPI.Controllers
 {
+    /// <summary>
+    /// Контроллер авторизации
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class AuthBaseController : ControllerBase
