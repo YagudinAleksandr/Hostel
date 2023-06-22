@@ -1,4 +1,6 @@
-﻿namespace Hostel.Domain.DTO.UsersDTOs
+﻿using System;
+
+namespace Hostel.Domain.DTO.UsersDTOs
 {
     public class UserResponseDTO
     {
@@ -10,5 +12,9 @@
         public string NormalizedUserName { get; set; }
         public string Fullname { get; set; }
         public string ProfileImg { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
+        public DateTimeOffset UpdatedAt { get; set; }
+        public bool IsSucceed { get; set; }
+        public string Errors { get; set; }
     }
 }
