@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Hostel.Domain.DTO.UsersDTOs;
 using System;
+using System.Collections.Generic;
 
 namespace Hostel.WebAPI.Controllers
 {
@@ -38,7 +39,27 @@ namespace Hostel.WebAPI.Controllers
         {
             var users = await repository.Users.ToListAsync();
 
-            var page = PagedList<UserEntity>.ToPagedList(users, pageParametrs.PageNumber, pageParametrs.PageSize);
+            List<UserResponseDTO> usersResponse = new List<UserResponseDTO>();
+
+            foreach(var user in users)
+            {
+                usersResponse.Add(new UserResponseDTO
+                {
+                    Id = user.Id,
+                    CreatedAt = user.CreatedAt,
+                    UpdatedAt = user.UpdatedAt,
+                    Fullname = user.Fullname,
+                    IsActive = user.IsActive,
+                    IsAdmin = user.IsAdmin,
+                    NormalizedUserName = user.NormalizedUserName,
+                    NormilizedEmail = user.NormalizedEmail,
+                    ProfileImg = user.ProfileImg,
+                    UserName = user.UserName,
+                    IsSucceed = true
+                });
+            }
+
+            var page = PagedList<UserResponseDTO>.ToPagedList(usersResponse, pageParametrs.PageNumber, pageParametrs.PageSize);
 
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(page.MetaData));
 
@@ -55,7 +76,7 @@ namespace Hostel.WebAPI.Controllers
         {
             var user = await repository.FindByIdAsync(id);
 
-            if (user is null) return NotFound("Пользователь не найден");
+            if (user is null) return NotFound(new UserResponseDTO { IsSucceed = false, Errors = "Пользователь не найден" });
 
             UserResponseDTO responseDTO = new UserResponseDTO
             {
@@ -66,7 +87,8 @@ namespace Hostel.WebAPI.Controllers
                 Fullname = user.Fullname,
                 NormalizedUserName = user.NormalizedUserName,
                 NormilizedEmail = user.NormalizedEmail,
-                UserName = user.UserName
+                UserName = user.UserName,
+                IsSucceed = true
             };
 
             return Ok(responseDTO);
@@ -97,9 +119,26 @@ namespace Hostel.WebAPI.Controllers
             var result = await repository.CreateAsync(user, entity.Password);
 
             if (result.Succeeded)
-                return Ok("Пользователь создан успешно");
+            {
+                var response = await repository.FindByEmailAsync(user.Email);
+
+                return Ok(new UserResponseDTO
+                {
+                    CreatedAt = response.CreatedAt,
+                    UpdatedAt = response.UpdatedAt,
+                    Fullname = response.Fullname,
+                    Id = response.Id,
+                    IsActive = response.IsActive,
+                    IsAdmin = response.IsAdmin,
+                    NormalizedUserName = response.NormalizedUserName,
+                    NormilizedEmail = response.NormalizedEmail,
+                    ProfileImg = response.ProfileImg,
+                    UserName = response.UserName,
+                    IsSucceed = true
+                });
+            }
             else
-                return BadRequest(result.Errors);
+                return BadRequest(new UserResponseDTO { IsSucceed = false, Errors = $"{result.Errors}" });
         }
 
         /// <summary>
@@ -112,12 +151,12 @@ namespace Hostel.WebAPI.Controllers
         {
             var user = await repository.FindByIdAsync(id);
             if (user == null)
-                return NotFound("Пользователь не найден");
+                return NotFound(new UserResponseDTO { IsSucceed = false, Errors = "Пользователь не найден" });
 
             var result = await repository.DeleteAsync(user);
 
-            if (result.Succeeded) return Ok("Пользователь удален успешно!");
-            else return BadRequest(result.Errors);
+            if (result.Succeeded) return Ok(new UserResponseDTO { IsSucceed = true });
+            else return BadRequest(new UserResponseDTO { IsSucceed = false, Errors = $"{result.Errors}" });
         }
 
         /// <summary>
@@ -146,8 +185,14 @@ namespace Hostel.WebAPI.Controllers
             {
                 var result = await repository.UpdateAsync(user);
 
-                if (result.Succeeded) return Ok("Пользователь обновлен успешно!");
-                else return BadRequest(result.Errors);
+                if (result.Succeeded) return Ok(new UserResponseDTO
+                {
+                    IsSucceed = true,
+                    Id = userUpdate.Id,
+                    UserName = user.UserName,
+                    Fullname = user.Fullname
+                });
+                else return BadRequest(new UserResponseDTO { IsSucceed = false, Errors = $"{result.Errors}" });
             }
             else
             {
@@ -161,11 +206,17 @@ namespace Hostel.WebAPI.Controllers
 
                     await repository.UpdateAsync(user);
 
-                    return Ok("Пользователь обновлен успешно!");
+                    return Ok(new UserResponseDTO
+                    {
+                        IsSucceed = true,
+                        Id = userUpdate.Id,
+                        UserName = user.UserName,
+                        Fullname = user.Fullname
+                    });
                 }
                 else
                 {
-                    return BadRequest(identityResult.Errors);
+                    return BadRequest(new UserResponseDTO { IsSucceed = false, Errors = $"{identityResult.Errors}" });
                 }
             }
             
