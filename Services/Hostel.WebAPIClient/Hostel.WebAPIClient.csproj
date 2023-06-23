@@ -4,4 +4,13 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Domain\Hostel.Domain.DTO\Hostel.Domain.DTO.csproj" />
+    <ProjectReference Include="..\Hostel.Infrastructure\Hostel.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
