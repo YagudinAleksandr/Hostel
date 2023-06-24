@@ -20,4 +20,10 @@
     <Folder Include="Components\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Domain\Hostel.Domain.DTO\Hostel.Domain.DTO.csproj" />
+    <ProjectReference Include="..\..\Services\Hostel.Infrastructure\Hostel.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Services\Hostel.WebAPIClient\Hostel.WebAPIClient.csproj" />
+  </ItemGroup>
+
 </Project>
