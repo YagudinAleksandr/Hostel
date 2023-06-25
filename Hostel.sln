@@ -29,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hostel.Domain.Office", "Dom
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hostel.Wpf", "UI\Hostel.Wpf\Hostel.Wpf.csproj", "{FCE14FDD-0E52-4C84-9148-C2EB0FA26EFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hostel.BlazorUI", "UI\Hostel.BlazorUI\Hostel.BlazorUI.csproj", "{5689BDEE-AA04-47B6-8898-8D9B9BA197DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hostel.BlazorUI", "UI\Hostel.BlazorUI\Hostel.BlazorUI.csproj", "{5689BDEE-AA04-47B6-8898-8D9B9BA197DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
