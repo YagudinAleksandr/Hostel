@@ -19,11 +19,11 @@ namespace Hostel.BlazorUI
 
             var service = builder.Services;
 
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            service.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:5001/") });
 
             #region Подключение сервисов
 
-            service.AddApi<IWebUsersRepository<UserCreateRequestDTO, UserUpdateDTO, UserResponseDTO>, WebUsersRepository<UserCreateRequestDTO, UserUpdateDTO, UserResponseDTO>>("api/Users/");
+            service.AddApi<IWebUsersRepository<UserCreateRequestDTO, UserUpdateDTO, UserResponseDTO>, WebUsersRepository<UserCreateRequestDTO, UserUpdateDTO, UserResponseDTO>>("https://localhost:5011/api", "Users/");
 
             #endregion
 
