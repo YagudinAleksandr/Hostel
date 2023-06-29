@@ -59,11 +59,11 @@ namespace Hostel.WebAPI.Controllers
                 if (System.IO.File.Exists(pathToFile))
                     System.IO.File.Delete(pathToFile);
 
-                return Ok(true);
+                return Ok(new FileDeleteResponseDTO { IsSuccessful = true });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Ошибка на сервере: {ex}");
+                return StatusCode(500, new FileDeleteResponseDTO { IsSuccessful = false, Errors = $"{ex.Message}" });
             }
         }
     }
