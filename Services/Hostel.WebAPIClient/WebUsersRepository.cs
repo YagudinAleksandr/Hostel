@@ -37,16 +37,14 @@ namespace Hostel.WebAPIClient
 
             var addResult = await client.PostAsync("", bodyContent, cancel).ConfigureAwait(false);
 
-            var addContent = await addResult.Content.ReadAsStringAsync(cancel).ConfigureAwait(false);
-
-            return JsonSerializer.Deserialize<TResponse>(addContent);
+            return await addResult.Content.ReadFromJsonAsync<TResponse>().ConfigureAwait(false);
         }
 
         public async Task<TResponse> Delete(string id, CancellationToken cancel = default)
         {
             var response = await client.DeleteAsync($"{id}", cancel).ConfigureAwait(false);
 
-            return response.Content as TResponse;
+            return await response.Content.ReadFromJsonAsync<TResponse>().ConfigureAwait(false);
         }
 
         public async Task<TResponse> Get(string id, CancellationToken cancel = default) =>

@@ -1,6 +1,7 @@
 ﻿using Hostel.Domain.DTO.FilesDTOs;
 using Hostel.Infrastructure.Repositories;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 
 namespace Hostel.WebAPIClient
@@ -18,14 +19,14 @@ namespace Hostel.WebAPIClient
         {
             var result = await client.DeleteAsync(name).ConfigureAwait(false);
 
-            return result.Content as TDResponse;
+            return await result.Content.ReadFromJsonAsync<TDResponse>().ConfigureAwait(false);
         }
 
         public async Task<TCResponse> Upload(MultipartFormDataContent content)
         {
             var result = await client.PostAsync("", content).ConfigureAwait(false);
 
-            return result.Content as TCResponse;
+            return await result.Content.ReadFromJsonAsync<TCResponse>().ConfigureAwait(false);
         }
     }
 }
