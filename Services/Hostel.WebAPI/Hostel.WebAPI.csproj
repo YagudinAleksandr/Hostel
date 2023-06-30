@@ -25,8 +25,7 @@
 
   <ItemGroup>
     <Folder Include="Infrastructure\" />
-    <Folder Include="wwwroot\profileImages\" />
-    <Folder Include="wwwroot\documents\" />
+    <Folder Include="wwwroot\upload\" />
   </ItemGroup>
 
 </Project>
