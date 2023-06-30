@@ -12,12 +12,12 @@ namespace Hostel.WebAPI.Controllers
     public class FilesController : ControllerBase
     {
         [HttpPost]
-        public IActionResult Upload([FromBody] FileUploadRequestDTO fileInfo)
+        public IActionResult Upload()
         {
             try
             {
                 var file = Request.Form.Files[0];
-                var folderName = Path.Combine("wwwroot", fileInfo.Directory);
+                var folderName = Path.Combine("wwwroot", "upload");
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
                 if (file.Length > 0)
@@ -48,13 +48,13 @@ namespace Hostel.WebAPI.Controllers
 
 
         [HttpDelete]
-        public IActionResult Delete([FromBody] FileDeleteRequestDTO fileInfo)
+        public IActionResult Delete(string name)
         {
             try
             {
-                var folderName = Path.Combine("wwwroot", fileInfo.Directory);
+                var folderName = Path.Combine("wwwroot", "upload");
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-                var pathToFile = Path.Combine(pathToSave, fileInfo.Filename);
+                var pathToFile = Path.Combine(pathToSave, name);
 
                 if (System.IO.File.Exists(pathToFile))
                     System.IO.File.Delete(pathToFile);
