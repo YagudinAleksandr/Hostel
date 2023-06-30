@@ -18,6 +18,9 @@ namespace Hostel.BlazorUI.Components
         public string FileFilter { get; set; }
 
         [Parameter]
+        public bool IsDisabled { get; set; }
+
+        [Parameter]
         public EventCallback<FileUploadResponseDTO> OnChange { get; set; }
 
         [Inject]

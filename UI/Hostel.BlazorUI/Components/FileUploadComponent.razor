@@ -1,1 +1,8 @@
-﻿<InputFile type="file" class="form-control" accept="@FileFilter" OnChange="@HandleSelected"/>
+﻿@if(!IsDisabled)
+{
+    <InputFile type="file" class="form-control" accept="@FileFilter" OnChange="@HandleSelected" />
+}
+else
+{
+    <InputFile type="file" class="form-control" accept="@FileFilter" OnChange="@HandleSelected" disabled/>
+}
