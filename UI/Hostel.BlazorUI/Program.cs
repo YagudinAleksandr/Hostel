@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Hostel.Infrastructure.Repositories;
 using Hostel.Domain.DTO.UsersDTOs;
 using Hostel.WebAPIClient;
+using Hostel.Domain.DTO.FilesDTOs;
 
 namespace Hostel.BlazorUI
 {
@@ -24,6 +25,7 @@ namespace Hostel.BlazorUI
             #region Подключение сервисов
 
             service.AddApi<IWebUsersRepository<UserCreateRequestDTO, UserUpdateDTO, UserResponseDTO>, WebUsersRepository<UserCreateRequestDTO, UserUpdateDTO, UserResponseDTO>>("https://localhost:5011/api", "Users/");
+            service.AddApi<IWebFilesRepository<FileUploadResponseDTO, FileDeleteResponseDTO>, WebFilesRepository<FileUploadResponseDTO, FileDeleteResponseDTO>>("https://localhost:5011/api", "Files/");
 
             #endregion
 
