@@ -6,16 +6,18 @@ namespace Hostel.Infrastructure.Repositories
     public interface IWebFilesRepository<TCreateResponse, TDeleteResponse>
        where TCreateResponse : class where TDeleteResponse : class
     {
+        
         /// <summary>
-        /// Загрузка файлов
+        /// Метод загрузки файла
         /// </summary>
-        /// <param name="request">Тело запроса на создание</param>
+        /// <param name="content">Данные из блока памяти</param>
         /// <returns>Ответ от API</returns>
         Task<TCreateResponse> Upload(MultipartFormDataContent content);
+        
         /// <summary>
-        /// Удаление файла
+        /// Метод удаления данных
         /// </summary>
-        /// <param name="request">Тело запроса</param>
+        /// <param name="name">Название файла</param>
         /// <returns>Ответ от API</returns>
         Task<TDeleteResponse> Delete(string name);
     }
