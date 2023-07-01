@@ -1,0 +1,23 @@
+﻿﻿@if (string.IsNullOrWhiteSpace(Title))
+{
+    <div class="text-white p-4 bg-success rounded">
+        <h3 class="mb-0">Я простое окошко</h3>
+    </div>
+}
+else
+{
+    <div id="toastsContainerTopRight" class="toasts-bottom-right">
+        <div class="toast bg-@Type fade show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="mr-auto">@Title</strong>
+                <small></small>
+                <button @onclick="ToastInstance.Close" data-dismiss="toast" type="button" class="ml-2 mb-1 close" aria-label="Close">
+                    <span aria-hidden="true">X</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                @ToastParam
+            </div>
+        </div>
+    </div>
+}
