@@ -47,7 +47,7 @@ namespace Hostel.WebAPI.Controllers
         }
 
 
-        [HttpDelete]
+        [HttpDelete("{name}")]
         public IActionResult Delete(string name)
         {
             try
@@ -63,7 +63,7 @@ namespace Hostel.WebAPI.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new FileDeleteResponseDTO { IsSuccessful = false, Errors = $"{ex.Message}" });
+                return BadRequest(new FileDeleteResponseDTO { IsSuccessful = false, Errors = $"{ex.Message}" });
             }
         }
     }
