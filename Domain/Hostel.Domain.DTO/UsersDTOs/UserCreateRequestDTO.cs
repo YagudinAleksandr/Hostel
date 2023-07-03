@@ -19,7 +19,7 @@ namespace Hostel.Domain.DTO.UsersDTOs
         [MinLength(8,ErrorMessage ="Поле пароль должно содержать минимально 8 символов")]
         public string Password { get; set; }
         [Required(ErrorMessage = "Подтвердите пароль")]
-        [Compare("Password")]
+        [Compare("Password", ErrorMessage ="Пароли не совпадают")]
         public string ConfirmedPassword { get; set; }
         [Required(ErrorMessage = "Не указано полное имя пользователя")]
         public string UserName { get; set; }
