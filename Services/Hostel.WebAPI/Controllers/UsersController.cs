@@ -102,43 +102,50 @@ namespace Hostel.WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] UserCreateRequestDTO entity)
         {
-            UserEntity user = new UserEntity
+            try
             {
-                Email = entity.Email,
-                NormalizedEmail = entity.Email,
-                UserName = entity.UserName,
-                NormalizedUserName = entity.Fullname,
-                Fullname = entity.Fullname,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow,
-                ProfileImg = entity.ProfileImg,
-                IsAdmin = entity.IsAdmin,
-                IsActive = entity.IsActive
-            };
-
-            var result = await repository.CreateAsync(user, entity.Password);
-
-            if (result.Succeeded)
-            {
-                var response = await repository.FindByEmailAsync(user.Email);
-
-                return Ok(new UserResponseDTO
+                UserEntity user = new UserEntity
                 {
-                    CreatedAt = response.CreatedAt,
-                    UpdatedAt = response.UpdatedAt,
-                    Fullname = response.Fullname,
-                    Id = response.Id,
-                    IsActive = response.IsActive,
-                    IsAdmin = response.IsAdmin,
-                    NormalizedUserName = response.NormalizedUserName,
-                    NormilizedEmail = response.NormalizedEmail,
-                    ProfileImg = response.ProfileImg,
-                    UserName = response.UserName,
-                    IsSucceed = true
-                });
+                    Email = entity.Email,
+                    NormalizedEmail = entity.Email,
+                    UserName = entity.UserName,
+                    NormalizedUserName = entity.Fullname,
+                    Fullname = entity.Fullname,
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.UtcNow,
+                    ProfileImg = entity.ProfileImg,
+                    IsAdmin = entity.IsAdmin,
+                    IsActive = entity.IsActive
+                };
+
+                var result = await repository.CreateAsync(user, entity.Password);
+
+                if (result.Succeeded)
+                {
+                    var response = await repository.FindByEmailAsync(user.Email);
+
+                    return Ok(new UserResponseDTO
+                    {
+                        CreatedAt = response.CreatedAt,
+                        UpdatedAt = response.UpdatedAt,
+                        Fullname = response.Fullname,
+                        Id = response.Id,
+                        IsActive = response.IsActive,
+                        IsAdmin = response.IsAdmin,
+                        NormalizedUserName = response.NormalizedUserName,
+                        NormilizedEmail = response.NormalizedEmail,
+                        ProfileImg = response.ProfileImg,
+                        UserName = response.UserName,
+                        IsSucceed = true
+                    });
+                }
+                else
+                    return BadRequest(new UserResponseDTO { IsSucceed = false, Errors = $"{result.Errors}" });
             }
-            else
-                return BadRequest(new UserResponseDTO { IsSucceed = false, Errors = $"{result.Errors}" });
+            catch(Exception ex)
+            {
+                return BadRequest(new UserResponseDTO { IsSucceed = false, Errors = $"{ex.Message}" });
+            }
         }
 
         /// <summary>
