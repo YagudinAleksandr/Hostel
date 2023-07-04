@@ -13,6 +13,7 @@ namespace Hostel.DAL.Entities
         public bool IsAdmin { get; set; }
         public bool IsActive { get; set; }
         public string ProfileImg { get; set; }
+        public string Post { get; set; }
         public DateTimeOffset CreatedAt { get; set; }
         public DateTimeOffset UpdatedAt { get; set; }
     }

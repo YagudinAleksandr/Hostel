@@ -23,5 +23,9 @@ namespace Hostel.Infrastructure.Entities
         /// Изображение пользователя
         /// </summary>
         string ProfileImg { get; set; }
+        /// <summary>
+        /// Должность
+        /// </summary>
+        string Post { get; set; }
     }
 }
