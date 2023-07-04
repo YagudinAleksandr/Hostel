@@ -16,5 +16,7 @@ namespace Hostel.Domain.DTO.UsersDTOs
         public DateTimeOffset UpdatedAt { get; set; }
         public bool IsSucceed { get; set; }
         public string Errors { get; set; }
+        public string Post { get; set; }
+        public string Phone { get; set; }
     }
 }

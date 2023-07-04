@@ -23,5 +23,9 @@ namespace Hostel.Domain.DTO.UsersDTOs
         public string ConfirmedPassword { get; set; }
         [Required(ErrorMessage = "Не указано полное имя пользователя")]
         public string UserName { get; set; }
+        [Required(ErrorMessage = "Поле В лице должно быть заполнено")]
+        public string Post { get; set; }
+        [Required(ErrorMessage = "Поле Контактный телефон должно быть заполнено")]
+        public string Phone { get; set; }
     }
 }
