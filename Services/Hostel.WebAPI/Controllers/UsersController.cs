@@ -55,7 +55,9 @@ namespace Hostel.WebAPI.Controllers
                     NormilizedEmail = user.NormalizedEmail,
                     ProfileImg = user.ProfileImg,
                     UserName = user.UserName,
-                    IsSucceed = true
+                    IsSucceed = true,
+                    Post = user.Post,
+                    Phone = user.PhoneNumber
                 });
             }
 
@@ -88,7 +90,9 @@ namespace Hostel.WebAPI.Controllers
                 NormalizedUserName = user.NormalizedUserName,
                 NormilizedEmail = user.NormalizedEmail,
                 UserName = user.UserName,
-                IsSucceed = true
+                IsSucceed = true,
+                Post = user.Post,
+                Phone = user.PhoneNumber
             };
 
             return Ok(responseDTO);
@@ -115,7 +119,9 @@ namespace Hostel.WebAPI.Controllers
                     UpdatedAt = DateTime.UtcNow,
                     ProfileImg = entity.ProfileImg,
                     IsAdmin = entity.IsAdmin,
-                    IsActive = entity.IsActive
+                    IsActive = entity.IsActive,
+                    Post = entity.Post,
+                    PhoneNumber = entity.Phone
                 };
 
                 var result = await repository.CreateAsync(user, entity.Password);
@@ -136,7 +142,9 @@ namespace Hostel.WebAPI.Controllers
                         NormilizedEmail = response.NormalizedEmail,
                         ProfileImg = response.ProfileImg,
                         UserName = response.UserName,
-                        IsSucceed = true
+                        IsSucceed = true,
+                        Post = response.Post,
+                        Phone = response.PhoneNumber
                     });
                 }
                 else
@@ -187,6 +195,8 @@ namespace Hostel.WebAPI.Controllers
             user.ProfileImg = userUpdate.ProfileImg;
             user.Fullname = userUpdate.Fullname;
             user.UpdatedAt = DateTime.UtcNow;
+            user.PhoneNumber = userUpdate.Phone;
+            user.Post = userUpdate.Post;
 
             if (string.IsNullOrEmpty(userUpdate.Password))
             {
