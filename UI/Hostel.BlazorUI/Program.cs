@@ -9,6 +9,7 @@ using Hostel.Domain.DTO.UsersDTOs;
 using Hostel.WebAPIClient;
 using Hostel.Domain.DTO.FilesDTOs;
 using Blazored.Toast;
+using Syncfusion.Blazor;
 
 namespace Hostel.BlazorUI
 {
@@ -30,6 +31,7 @@ namespace Hostel.BlazorUI
 
 
             service.AddBlazoredToast();
+            service.AddSyncfusionBlazor();
             #endregion
 
             await builder.Build().RunAsync();

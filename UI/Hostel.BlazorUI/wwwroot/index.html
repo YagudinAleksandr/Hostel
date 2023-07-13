@@ -29,6 +29,9 @@
 
     <!--Toast service-->
     <link href="_content/Blazored.Toast/blazored-toast.min.css" rel="stylesheet" />
+
+    <!--Syncfusion Input Mask-->
+    <link href="_content/Syncfusion.Blazor.Themes/bootstrap5.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -45,25 +48,13 @@
     <script>navigator.serviceWorker.register('service-worker.js');</script>
 
     <!-- Libs JS -->
-    <script src="dist/libs/apexcharts/dist/apexcharts.min.js" defer></script>
-    <script src="dist/libs/jsvectormap/dist/js/jsvectormap.min.js" defer></script>
-    <script src="dist/libs/jsvectormap/dist/maps/world.js" defer></script>
-    <script src="dist/libs/jsvectormap/dist/maps/world-merc.js" defer></script>
 
     <script src="dist/libs/nouislider/dist/nouislider.min.js" defer></script>
     <script src="dist/libs/litepicker/dist/litepicker.js" defer></script>
     <script src="dist/libs/tom-select/dist/js/tom-select.base.min.js" defer></script>
 
-    <!--Masked Input-->
-    <script src="dist/libs/maskedinput/jquery.maskedinput.min.js" defer></script>
-    <script>
-        //Код jQuery, установливающий маску для ввода телефона элементу input
-        //1. После загрузки страницы,  когда все элементы будут доступны выполнить...
-        $(function () {
-            //2. Получить элемент, к которому необходимо добавить маску
-            $("#userPhoneNumber").mask("+7(999) 999-9999");
-        });
-    </script>
+    <!--Syncfusion Input Mask-->
+    <script src="_content/Syncfusion.Blazor.Core/scripts/syncfusion-blazor.min.js" type="text/javascript"></script>
 
     <!-- Tabler Core -->
     <script src="dist/js/tabler.min.js" defer></script>
@@ -655,9 +646,8 @@
                 }],
             })).render();
         });
-                  // @formatter:on
+                                  // @formatter:on
     </script>
-
 </body>
 
 </html>
