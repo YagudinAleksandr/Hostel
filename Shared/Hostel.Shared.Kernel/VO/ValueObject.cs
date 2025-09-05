@@ -12,6 +12,61 @@
         protected abstract IEnumerable<object> GetEqualityComponents();
 
         /// <summary>
+        /// Присвоение значения
+        /// </summary>
+        /// <param name="value">Значение</param>
+        /// <param name="minLength">Минимальная длина</param>
+        /// <param name="maxLength">Максимальная длина</param>
+        /// <param name="fieldNameCode">Код поля</param>
+        /// <returns>Значение</returns>
+        /// <exception cref="DomainRequiredFieldException"></exception>
+        /// <exception cref="DomainMinLengthFieldException"></exception>
+        /// <exception cref="DomainMaxLengthFieldException"></exception>
+        protected static string SetCharField(string fieldNameCode, string value, int minLength, int maxLength)
+        {
+            if (!string.IsNullOrEmpty(value))
+                throw new DomainRequiredFieldException(fieldNameCode);
+
+            if (value.Length < minLength)
+                throw new DomainMinLengthFieldException(fieldNameCode, minLength);
+
+            if (value.Length > maxLength)
+                throw new DomainMaxLengthFieldException(fieldNameCode, maxLength);
+
+            return value;
+        }
+
+        /// <summary>
+        /// присвоение числового значения
+        /// </summary>
+        /// <param name="fieldNameCode">Код поля</param>
+        /// <param name="value">Значение</param>
+        /// <param name="minValue">Минимальное значение</param>
+        /// <param name="maxValue">Максимальное значение</param>
+        /// <returns>Значение</returns>
+        /// <exception cref="DomainRangeFieldException"></exception>
+        /// <exception cref="DomainMaxLengthFieldException"></exception>
+        /// <exception cref="DomainMinLengthFieldException"></exception>
+        protected static double SetNumericField(string fieldNameCode,
+            double value,
+            double? minValue = null,
+            double? maxValue = null)
+        {
+            if (minValue != null
+                && maxValue != null
+                && (value < minValue || value > maxValue))
+                throw new DomainRangeFieldException(fieldNameCode, minValue.Value, maxValue.Value);
+
+            if (minValue != null && maxValue == null && value < minValue)
+                throw new DomainMinLengthFieldException(fieldNameCode, minValue.Value);
+
+            if (maxValue != null && minValue == null && value > maxValue)
+                throw new DomainMaxLengthFieldException(fieldNameCode, maxValue.Value);
+
+            return value;
+        }
+
+        /// <summary>
         /// Проверка равенства
         /// </summary>
         /// <param name="obj">Объект</param>
@@ -40,28 +95,6 @@
             // Сравниваем по всем значимым полям
             return GetEqualityComponents()
                 .SequenceEqual(other.GetEqualityComponents());
-        }
-
-        /// <summary>
-        /// Установка значения поля
-        /// </summary>
-        /// <param name="value">Значение</param>
-        /// <param name="minLength">Минимальная длина</param>
-        /// <param name="maxLength">Максимальная длина</param>
-        /// <returns>Значение</returns>
-        /// <exception cref="DomainException">Ошибка валидации поля</exception>
-        public string SetField(string value, int minLength, int maxLength)
-        {
-            if (!string.IsNullOrEmpty(value))
-                throw new DomainException("RequiredFiled", "Name");
-
-            if (value.Length < minLength)
-                throw new DomainException("MinLength", "Name");
-
-            if (value.Length > maxLength)
-                throw new DomainException("MaxLength", "Name");
-
-            return value;
         }
 
         /// <summary>

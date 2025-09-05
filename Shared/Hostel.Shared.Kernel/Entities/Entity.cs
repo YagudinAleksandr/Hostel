@@ -17,7 +17,7 @@
         /// <param name="id">Идентификатор</param>
         protected Entity(TKey id)
         {
-            Id = id ?? throw new DomainException("Must be required");
+            Id = id ?? throw new DomainRequiredFieldException(DomainFieldCodes.DomainFieldId);
         }
 
         /// <summary>

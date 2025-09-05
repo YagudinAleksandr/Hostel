@@ -10,4 +10,9 @@
     <ProjectReference Include="..\..\Shared\Hostel.Shared.Kernel\Hostel.Shared.Kernel.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Entities\" />
+    <Folder Include="VO\" />
+  </ItemGroup>
+
 </Project>
