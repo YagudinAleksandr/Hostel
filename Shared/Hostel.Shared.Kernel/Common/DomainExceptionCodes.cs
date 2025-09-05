@@ -44,5 +44,15 @@
         /// Не валидное поле должно содержать
         /// </summary>
         public const string DomainValidateMustHaveFieldException = "domai.exception.field.validation.must_have";
+
+        /// <summary>
+        /// Ресурс не найден
+        /// </summary>
+        public const string DomainResourceNotFoundException = "domain.exception.resource_not_found";
+
+        /// <summary>
+        /// Ресурс не найден с параметром
+        /// </summary>
+        public const string DomainResourceNotFoundWithParam = "domain.exception.resource_not_found_param";
     }
 }

@@ -7,12 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\Hostel.Shared.Kernel\Hostel.Shared.Kernel.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Entities\" />
-    <Folder Include="VO\" />
+    <ProjectReference Include="..\..\Shared\Hostel.Domain.Primitives\Hostel.Domain.Primitives.csproj" />
   </ItemGroup>
 
 </Project>
