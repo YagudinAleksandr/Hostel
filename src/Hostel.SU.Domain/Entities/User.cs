@@ -3,6 +3,9 @@ using Hostel.Shared.Kernel;
 
 namespace Hostel.SU.Domain
 {
+    /// <summary>
+    /// Пользователь
+    /// </summary>
     public class User : AggregateRoot<Guid>
     {
         /// <summary>
@@ -168,7 +171,7 @@ namespace Hostel.SU.Domain
         /// <summary>
         /// Смена адреса электронной почты
         /// </summary>
-        /// <param name="email">Новый адрес жлектронной почты</param>
+        /// <param name="email">Новый адрес электронной почты</param>
         /// <exception cref="DomainInactiveUserException"></exception>
         public void ChangeEmail(EmailVo email)
         {
