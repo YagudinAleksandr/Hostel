@@ -4,6 +4,9 @@ using Hostel.SU.Domain;
 
 namespace Hostel.SUDomain.Tests.VO
 {
+    /// <summary>
+    /// Тесты для Value Object <see cref="EmailVo"/>
+    /// </summary>
     public class EmailVoTests
     {
         [Fact(DisplayName = "Создание адреса электронной почты")]
