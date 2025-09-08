@@ -65,7 +65,7 @@ namespace Hostel.Domain.Primitives
         /// <returns>Строка формата Иванов И.И.</returns>
         public string ShortVariationOfName()
         {
-            string fullShortName = $"{LastName} {LastName[0]}.";
+            string fullShortName = $"{LastName} {FirstName[0]}.";
 
             fullShortName += !string.IsNullOrEmpty(Patronymic) ? $" {Patronymic[0]}." : string.Empty;
 

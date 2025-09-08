@@ -47,5 +47,21 @@ namespace Hostel.SharedPrimitives.Tests
             // Arrange
             fullname.Should().Throw<DomainMaxLengthFieldException>();
         }
+
+        [Fact(DisplayName = "Короткое представление ФИО")]
+        public async Task Shoul_Return_Short_Variation_Of_Name()
+        {
+            // Arrange
+            string firstname = "Test";
+            string patronimic = "ATest";
+            string result = "Test T. A.";
+
+            // Act
+            var fullname = new FullNameVo(firstname, "Test", patronimic);
+            var shortName = fullname.ShortVariationOfName();
+
+            // Assert
+            Assert.Equal(result, shortName);
+        }
     }
 }
