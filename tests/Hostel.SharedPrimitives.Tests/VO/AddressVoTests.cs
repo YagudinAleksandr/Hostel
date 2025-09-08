@@ -1,7 +1,6 @@
 ﻿using FluentAssertions;
 using Hostel.Domain.Primitives;
 using Hostel.Shared.Kernel;
-using System.Data;
 
 namespace Hostel.SharedPrimitives.Tests
 {
