@@ -97,6 +97,80 @@ namespace Hostel.SUDomain.Tests.Entities
             res.Should().Throw<DomainInactiveUserException>();
         }
 
+        [Fact(DisplayName = "Смена пароля пользователя")]
+        public async Task Should_Change_Password()
+        {
+            // Arrange
+            var user = CreateTestUser(UserStatuses.Active);
+
+            // Act
+            user.ChangePassword("123321");
+
+            // Arrange
+            Assert.NotNull(user);
+            Assert.Equal("123321", user.PasswordHash);
+        }
+
+        [Theory(DisplayName = "Невозможно изменить пароль, если пользователь не активен")]
+        [InlineData(ServicesUsersStatusesCodes.ServicesUsersUserStatusInactiveCode)]
+        [InlineData(ServicesUsersStatusesCodes.ServicesUsersUserStatusBlockedCode)]
+        public async Task Should_Not_Change_Password_When_User_Not_Active(string status)
+        {
+            // Arrange
+            var userStatus = UserStatuses.All.FirstOrDefault(x => x.Code == status);
+            var user = CreateTestUser(userStatus);
+
+            // Act
+            var res = () => user.ChangePassword("123321");
+
+            // Assert
+            res.Should().Throw<DomainInactiveUserException>();
+        }
+
+        [Fact(DisplayName = "Смена типа пользователя")]
+        public async Task Should_Change_Type()
+        {
+            // Arrange
+            var user = CreateTestUser(UserStatuses.Active);
+
+            // Act
+            user.ChangeType(UserTypes.Manager);
+
+            // Arrange
+            Assert.NotNull(user);
+            Assert.Equal(ServicesUsersTypeCodes.Manager, user.Type.Code);
+        }
+
+        [Theory(DisplayName = "Невозможно изменить тип пользователя, если пользователь не активен")]
+        [InlineData(ServicesUsersStatusesCodes.ServicesUsersUserStatusInactiveCode)]
+        [InlineData(ServicesUsersStatusesCodes.ServicesUsersUserStatusBlockedCode)]
+        public async Task Should_Not_Change_Type_When_User_Not_Active(string status)
+        {
+            // Arrange
+            var userStatus = UserStatuses.All.FirstOrDefault(x => x.Code == status);
+            var user = CreateTestUser(userStatus);
+
+            // Act
+            var res = () => user.ChangeType(UserTypes.Manager);
+
+            // Assert
+            res.Should().Throw<DomainInactiveUserException>();
+        }
+
+        [Fact(DisplayName = "Смена статуса пользователя")]
+        public async Task Should_Change_Status()
+        {
+            // Arrange
+            var user = CreateTestUser(UserStatuses.Active);
+
+            // Act
+            user.ChangeStatus(UserStatuses.Blocked);
+
+            // Arrange
+            Assert.NotNull(user);
+            Assert.Equal(ServicesUsersStatusesCodes.ServicesUsersUserStatusBlockedCode, user.Status.Code);
+        }
+
         /// <summary>
         /// Создание тестового пользователя
         /// </summary>

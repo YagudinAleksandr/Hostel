@@ -128,6 +128,9 @@ namespace Hostel.SU.Domain
             if (Type.Equals(type))
                 return;
 
+            if (Status.Equals(UserStatuses.Inactive) || Status.Equals(UserStatuses.Blocked))
+                throw new DomainInactiveUserException();
+
             Type = type;
             UpdatedAt = DateTime.UtcNow;
 
