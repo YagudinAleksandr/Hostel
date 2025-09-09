@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Hostel.Shared.Application.Common\Hostel.Shared.Application.Common.csproj" />
+    <ProjectReference Include="..\Hostel.SU.Domain\Hostel.SU.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
