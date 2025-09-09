@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hostel.SUDomain.Tests", "te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hostel.SU.Application", "src\Hostel.SU.Application\Hostel.SU.Application.csproj", "{170AAA15-8D50-4135-9A91-1C17AB795DE2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hostel.Shared.Application.Common", "Shared\Hostel.Shared.Application.Common\Hostel.Shared.Application.Common.csproj", "{CBCF3AA3-4FE9-4062-8238-2956445A5089}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{170AAA15-8D50-4135-9A91-1C17AB795DE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{170AAA15-8D50-4135-9A91-1C17AB795DE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{170AAA15-8D50-4135-9A91-1C17AB795DE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBCF3AA3-4FE9-4062-8238-2956445A5089}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBCF3AA3-4FE9-4062-8238-2956445A5089}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBCF3AA3-4FE9-4062-8238-2956445A5089}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBCF3AA3-4FE9-4062-8238-2956445A5089}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +75,7 @@ Global
 		{DF5819D6-A87D-4D16-A1E5-2B2D7408A980} = {83B5A4CA-1CE4-4CCC-B8D4-3E2BF49C0378}
 		{AD8EDDC4-E006-4D3E-A819-954B50101BD0} = {83B5A4CA-1CE4-4CCC-B8D4-3E2BF49C0378}
 		{170AAA15-8D50-4135-9A91-1C17AB795DE2} = {392584A0-570A-4126-998B-9D2CE5B571C3}
+		{CBCF3AA3-4FE9-4062-8238-2956445A5089} = {36D591C7-65C7-A0D1-1CBC-10CDE441BDC8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DFCED2E8-D5AA-4865-9384-DA3314CF85F3}
