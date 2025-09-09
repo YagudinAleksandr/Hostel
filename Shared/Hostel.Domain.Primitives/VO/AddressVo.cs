@@ -92,7 +92,7 @@ namespace Hostel.Domain.Primitives
         public override string ToString()
         {
             string address = $"{PostalCode}, {Country}, ";
-            address += !string.IsNullOrEmpty(Region) ? $" {Region}, " : string.Empty;
+            address += !string.IsNullOrEmpty(Region) ? $"{Region}, " : string.Empty;
             address += $"{City}, {Street}, {House}";
 
             return address;
