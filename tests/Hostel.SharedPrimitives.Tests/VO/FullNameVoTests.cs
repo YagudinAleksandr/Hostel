@@ -20,7 +20,7 @@ namespace Hostel.SharedPrimitives.Tests
             // Assert
             Assert.NotNull(fullname);
             Assert.Equal(firstname, fullname.FirstName);
-            Assert.Equal(lastname, fullname.LastName);
+            Assert.Equal(lastname, fullname.Lastname);
         }
 
         [Theory(DisplayName = "Должен вернуть исключение о заполнении обязательных полей")]

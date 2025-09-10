@@ -13,6 +13,11 @@
         public string Firstname { get; set; } = null!;
 
         /// <summary>
+        /// Фамилия
+        /// </summary>
+        public string Lastname { get; set; } = null!;
+
+        /// <summary>
         /// Отчесвто
         /// </summary>
         public string? Patronymic { get; set; }

@@ -29,6 +29,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Contracts", "Contracts", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hostel.Users.Contracts", "Shared\Contracts\Hostel.Users.Contracts\Hostel.Users.Contracts.csproj", "{9BE1A648-18CC-42BE-9C86-6F2B3F14A7CE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hostel.SUApplication.Tests", "tests\Hostel.SUApplication.Tests\Hostel.SUApplication.Tests.csproj", "{35B5D7E1-0FF8-4E15-A1F3-6E3187DD2346}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{9BE1A648-18CC-42BE-9C86-6F2B3F14A7CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9BE1A648-18CC-42BE-9C86-6F2B3F14A7CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9BE1A648-18CC-42BE-9C86-6F2B3F14A7CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35B5D7E1-0FF8-4E15-A1F3-6E3187DD2346}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35B5D7E1-0FF8-4E15-A1F3-6E3187DD2346}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35B5D7E1-0FF8-4E15-A1F3-6E3187DD2346}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35B5D7E1-0FF8-4E15-A1F3-6E3187DD2346}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,6 +92,7 @@ Global
 		{CBCF3AA3-4FE9-4062-8238-2956445A5089} = {36D591C7-65C7-A0D1-1CBC-10CDE441BDC8}
 		{11BD80A4-DC9A-4B67-A19E-BBC1CE289233} = {36D591C7-65C7-A0D1-1CBC-10CDE441BDC8}
 		{9BE1A648-18CC-42BE-9C86-6F2B3F14A7CE} = {11BD80A4-DC9A-4B67-A19E-BBC1CE289233}
+		{35B5D7E1-0FF8-4E15-A1F3-6E3187DD2346} = {83B5A4CA-1CE4-4CCC-B8D4-3E2BF49C0378}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DFCED2E8-D5AA-4865-9384-DA3314CF85F3}
