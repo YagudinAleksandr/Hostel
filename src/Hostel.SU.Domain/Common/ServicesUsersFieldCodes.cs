@@ -14,5 +14,15 @@
         /// Пароль
         /// </summary>
         public const string ServicesUsersFieldPassword = "services.users.field.password";
+
+        /// <summary>
+        /// Тип пользователя
+        /// </summary>
+        public const string ServicesUsersFieldType = "services.users.field.type";
+
+        /// <summary>
+        /// Статус пользователя
+        /// </summary>
+        public const string ServicesUsersFieldStatus = "services.users.field.status";
     }
 }

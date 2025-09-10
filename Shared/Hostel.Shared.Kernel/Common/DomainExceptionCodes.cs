@@ -64,5 +64,10 @@
         /// Ресурс уже существует
         /// </summary>
         public const string DomainResourceAlreadyExists = "domain.exception.resource_already_exists";
+
+        /// <summary>
+        /// Ошибка сервера
+        /// </summary>
+        public const string InternalServerError = "internal_server_error";
     }
 }
