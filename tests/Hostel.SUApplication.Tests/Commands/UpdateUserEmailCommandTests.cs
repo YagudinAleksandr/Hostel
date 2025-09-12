@@ -52,7 +52,7 @@ namespace Hostel.SUApplication.Tests.Commands
                 UserStatuses.Active // мокаем первый статус
             ));
 
-            _mockRepo.Setup(r => r.IsEmailExists("test@example.com", userId)).ReturnsAsync(false);
+            _mockRepo.Setup(r => r.IsEmailExistsAsync("test@example.com", userId, default)).ReturnsAsync(false);
             _mockMapper.Setup(m => m.Map<UserResponse>(It.IsAny<User>())).Returns(new UserResponse
             {
                 Id = userId,
@@ -95,7 +95,7 @@ namespace Hostel.SUApplication.Tests.Commands
                 UserStatuses.Active // мокаем первый статус
             ));
 
-            _mockRepo.Setup(r => r.IsEmailExists("test2@example.com", It.IsAny<Guid>())).ReturnsAsync(true);
+            _mockRepo.Setup(r => r.IsEmailExistsAsync("test2@example.com", It.IsAny<Guid>(), default)).ReturnsAsync(true);
             _mockMapper.Setup(m => m.Map<UserResponse>(It.IsAny<User>())).Returns(new UserResponse
             {
                 Id = userId,

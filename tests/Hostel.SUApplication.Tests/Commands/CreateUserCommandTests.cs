@@ -62,7 +62,7 @@ namespace Hostel.SUApplication.Tests.Commands
                 UserStatuses.Inactive // мокаем первый статус
             );
 
-            _mockRepo.Setup(r => r.IsEmailExists("test@example.com", Guid.Empty)).ReturnsAsync(false);
+            _mockRepo.Setup(r => r.IsEmailExistsAsync("test@example.com", Guid.Empty, default)).ReturnsAsync(false);
             _mockPasswordService.Setup(p => p.GetHashPassword("password123")).Returns("hashedPassword");
             _mockMapper.Setup(m => m.Map<UserResponse>(It.IsAny<User>())).Returns(new UserResponse
             {
@@ -100,7 +100,7 @@ namespace Hostel.SUApplication.Tests.Commands
                 Status = "INACTIVE"
             });
 
-            _mockRepo.Setup(r => r.IsEmailExists("existing@example.com", null)).ReturnsAsync(true);
+            _mockRepo.Setup(r => r.IsEmailExistsAsync("existing@example.com", null, default)).ReturnsAsync(true);
             _mockPasswordService.Setup(p => p.GetHashPassword("password123")).Returns("hashedPassword");
 
             // Act
@@ -126,7 +126,7 @@ namespace Hostel.SUApplication.Tests.Commands
                 Status = "ACTIVE"
             });
 
-            _mockRepo.Setup(r => r.IsEmailExists("test@example.com", null)).ReturnsAsync(false);
+            _mockRepo.Setup(r => r.IsEmailExistsAsync("test@example.com", null, default)).ReturnsAsync(false);
             _mockPasswordService.Setup(p => p.GetHashPassword("password123")).Returns("hashedPassword");
 
             // Act
@@ -152,7 +152,7 @@ namespace Hostel.SUApplication.Tests.Commands
                 Status = "invalid-status" // такого статуса нет
             });
 
-            _mockRepo.Setup(r => r.IsEmailExists("test@example.com", Guid.Empty)).ReturnsAsync(false);
+            _mockRepo.Setup(r => r.IsEmailExistsAsync("test@example.com", Guid.Empty, default)).ReturnsAsync(false);
             _mockPasswordService.Setup(p => p.GetHashPassword("password123")).Returns("hashedPassword");
 
             // Act
@@ -178,7 +178,7 @@ namespace Hostel.SUApplication.Tests.Commands
                 Status = "INACTIVE"
             });
 
-            _mockRepo.Setup(r => r.IsEmailExists("test@example.com", null)).ReturnsAsync(false);
+            _mockRepo.Setup(r => r.IsEmailExistsAsync("test@example.com", null, default)).ReturnsAsync(false);
             _mockPasswordService.Setup(p => p.GetHashPassword("password123")).Returns("hashedPassword");
             _mockRepo.Setup(r => r.Add(It.IsAny<User>())).Throws(new Exception("Unexpected error"));
 
