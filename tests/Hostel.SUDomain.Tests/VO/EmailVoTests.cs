@@ -21,6 +21,8 @@ namespace Hostel.SUDomain.Tests.VO
             // Assert
             Assert.NotNull(result);
             Assert.Equal(email, result.Value);
+
+            await Task.CompletedTask;
         }
 
         [Fact(DisplayName = "Исключение о минимальной длине поля")]
@@ -34,6 +36,8 @@ namespace Hostel.SUDomain.Tests.VO
 
             // Assert
             result.Should().Throw<DomainMinLengthFieldException>();
+
+            await Task.CompletedTask;
         }
 
         [Fact(DisplayName = "Исключение о максимальной длине поля")]
@@ -47,6 +51,8 @@ namespace Hostel.SUDomain.Tests.VO
 
             // Assert
             result.Should().Throw<DomainMaxLengthFieldException>();
+
+            await Task.CompletedTask;
         }
 
         [Theory(DisplayName = "Исключение о невалидном адресе электроннйо почты")]
@@ -62,6 +68,7 @@ namespace Hostel.SUDomain.Tests.VO
             {
                 Assert.Throws<DomainValidationFieldException>(() => new EmailVo(input));
             }
+            await Task.CompletedTask;
         }
     }
 }

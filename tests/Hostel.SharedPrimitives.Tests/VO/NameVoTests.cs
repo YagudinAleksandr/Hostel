@@ -21,6 +21,8 @@ namespace Hostel.SharedPrimitives.Tests
             // Assert
             Assert.NotNull(nameVo);
             Assert.Equal(nameVo.Value, name);
+
+            await Task.CompletedTask;
         }
 
         [Fact(DisplayName = "Возвращает исключение о незаполненном поле")]
@@ -34,6 +36,8 @@ namespace Hostel.SharedPrimitives.Tests
 
             // Assert
             nameVo.Should().Throw<DomainRequiredFieldException>();
+
+            await Task.CompletedTask;
         }
 
         [Fact(DisplayName = "Возвращает исключение о минимальной длине поля")]
@@ -47,6 +51,8 @@ namespace Hostel.SharedPrimitives.Tests
 
             // Assert
             nameVo.Should().Throw<DomainMinLengthFieldException>();
+
+            await Task.CompletedTask;
         }
 
         [Fact(DisplayName = "Возвращает исключение о максимальной длине поля")]
@@ -60,6 +66,8 @@ namespace Hostel.SharedPrimitives.Tests
 
             // Assert
             nameVo.Should().Throw<DomainMaxLengthFieldException>();
+
+            await Task.CompletedTask;
         }
     }
 }

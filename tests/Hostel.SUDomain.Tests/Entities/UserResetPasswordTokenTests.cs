@@ -20,6 +20,8 @@ namespace Hostel.SUDomain.Tests.Entities
             // Assert
             Assert.NotNull(result);
             Assert.Equal(userId, result.UserId);
+
+            await Task.CompletedTask;
         }
 
         [Fact(DisplayName = "Изменяет статус токена на Использован")]
@@ -35,6 +37,8 @@ namespace Hostel.SUDomain.Tests.Entities
             // Assert
             Assert.Equal(userId, token.UserId);
             Assert.Equal(ServicesUsersResetPasswordStatusCodes.Used, token.Status.Code);
+
+            await Task.CompletedTask;
         }
 
         [Fact(DisplayName = "Невозможно изменить статус токена на Использован, если он был уже использован")]
@@ -51,6 +55,8 @@ namespace Hostel.SUDomain.Tests.Entities
 
             // Assert
             res.Should().Throw<DomainUsedTokenException>();
+
+            await Task.CompletedTask;
         }
 
         [Fact(DisplayName = "Невозможно изменить статус токена на Использован, если он истек")]
@@ -67,6 +73,8 @@ namespace Hostel.SUDomain.Tests.Entities
 
             // Assert
             res.Should().Throw<DomainExpiredTokenException>();
+
+            await Task.CompletedTask;
         }
     }
 }
