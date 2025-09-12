@@ -60,7 +60,7 @@ namespace Hostel.SU.Application
 
             try
             {
-                if (await _repository.IsEmailExists(createUser.Email))
+                if (await _repository.IsEmailExistsAsync(createUser.Email, cancellationToken: cancellationToken))
                     throw new DomainResourceAlreadyExistsException(ServicesUsersEntitiesCodes.ServicesUsersEntityUser,
                         ServicesUsersFieldCodes.ServicesUsersFieldEmail,
                         createUser.Email);

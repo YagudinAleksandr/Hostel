@@ -54,7 +54,7 @@ namespace Hostel.SU.Application
                     DomainFieldCodes.DomainFieldId,
                     request.UserUpdate.Id);
 
-                if (await _repository.IsEmailExists(request.UserUpdate.Email, user.Id))
+                if (await _repository.IsEmailExistsAsync(request.UserUpdate.Email, user.Id, cancellationToken))
                     throw new DomainResourceAlreadyExistsException(ServicesUsersEntitiesCodes.ServicesUsersEntityUser,
                         ServicesUsersFieldCodes.ServicesUsersFieldEmail, request.UserUpdate.Email);
 
