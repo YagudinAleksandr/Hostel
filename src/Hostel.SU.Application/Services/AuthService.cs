@@ -2,6 +2,7 @@
 using Hostel.Shared.Kernel;
 using Hostel.SU.Domain;
 using Hostel.Users.Contracts.Response;
+using System.Threading;
 
 namespace Hostel.SU.Application
 {
@@ -62,13 +63,7 @@ namespace Hostel.SU.Application
                 throw new DomainResourceNotFoundException(ServicesUsersEntitiesCodes.ServicesUsersEntityUser);
 
             string accessToken = _tokenGeneratorService.GenerateAccessToken(user.Id, user.Type);
-            string refreshToken = _tokenGeneratorService.GenerateRefreshToken(user.Id);
-
-            var refreshTokenEntity = new RefreshToken(refreshToken,
-                DateTime.UtcNow.AddMinutes(_tokenGeneratorService.RefreshTokenLifetimeMinutes),
-                user.Id);
-
-            await _refreshTokenRepository.AddAsync(refreshTokenEntity, cancellationToken);
+            string refreshToken = await SaveNewGeneratedRefreshToken(user.Id, cancellationToken);
 
             return new UserLoginResponse()
             {
@@ -93,13 +88,7 @@ namespace Hostel.SU.Application
             await _refreshTokenRepository.UpdateAsync(storedToken, cancellationToken);
 
             string accessToken = _tokenGeneratorService.GenerateAccessToken(user.Id, user.Type);
-            refreshToken = _tokenGeneratorService.GenerateRefreshToken(user.Id);
-
-            var refreshTokenEntity = new RefreshToken(refreshToken,
-                DateTime.UtcNow.AddMinutes(_tokenGeneratorService.RefreshTokenLifetimeMinutes),
-                user.Id);
-
-            await _refreshTokenRepository.AddAsync(refreshTokenEntity, cancellationToken);
+            refreshToken = await SaveNewGeneratedRefreshToken(user.Id, cancellationToken);
 
             return new UserLoginResponse()
             {
@@ -117,6 +106,26 @@ namespace Hostel.SU.Application
 
             token.Revoke();
             await _refreshTokenRepository.UpdateAsync(token);
+        }
+
+        /// <summary>
+        /// Сохраняет новый токен обновления
+        /// </summary>
+        /// <param name="userId">Идентификаор пользователя</param>
+        /// <param name="cancellationToken">Токен отмены</param>
+        /// <returns>Сгенерированный токен обновления</returns>
+        /// <remarks>Генерирует новый токен обновления из <paramref name="userId"/> и сохраняет</remarks>
+        private async Task<string> SaveNewGeneratedRefreshToken(Guid userId, CancellationToken cancellationToken)
+        {
+            var refreshToken = _tokenGeneratorService.GenerateRefreshToken(userId);
+
+            var refreshTokenEntity = new RefreshToken(refreshToken,
+                DateTime.UtcNow.AddMinutes(_tokenGeneratorService.RefreshTokenLifetimeMinutes),
+                userId);
+
+            await _refreshTokenRepository.AddAsync(refreshTokenEntity, cancellationToken);
+
+            return refreshToken;
         }
     }
 }
