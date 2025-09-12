@@ -13,6 +13,13 @@ namespace Hostel.SU.Domain
         /// <param name="email">Адрес электронной почты</param>
         /// <param name="skipUserId">Идентификатор пользователя для пропуска в поиске</param>
         /// <returns>true - существует, false - отсутствует</returns>
-        bool IsEmailExists(string email, Guid? skipUserId = null);
+        Task<bool> IsEmailExists(string email, Guid? skipUserId = null);
+
+        /// <summary>
+        /// Получение по адресу электронной почты
+        /// </summary>
+        /// <param name="email">Адрес электронной почты</param>
+        /// <returns>Пользователь</returns>
+        Task<User?> GetByEmail(string email);
     }
 }
