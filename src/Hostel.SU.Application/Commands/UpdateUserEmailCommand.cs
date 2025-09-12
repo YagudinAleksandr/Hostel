@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Hostel.Domain.Primitives;
 using Hostel.Shared.Application.Common;
 using Hostel.Shared.Kernel;
 using Hostel.SU.Domain;

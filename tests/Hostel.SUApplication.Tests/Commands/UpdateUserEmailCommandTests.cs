@@ -49,7 +49,7 @@ namespace Hostel.SUApplication.Tests.Commands
                 new FullNameVo("John", "Doe", "Smith"),
                 "hashedPassword",
                 UserTypes.Standart,  // мокаем первый тип
-                UserStatuses.Inactive // мокаем первый статус
+                UserStatuses.Active // мокаем первый статус
             ));
 
             _mockRepo.Setup(r => r.IsEmailExists("test@example.com", userId)).Returns(false);
@@ -61,7 +61,7 @@ namespace Hostel.SUApplication.Tests.Commands
                 Lastname = "Doe",
                 Patronymic = "Smith",
                 Type = "STANDART",
-                Status = "INACTIVE"
+                Status = "ACTIVE"
             });
 
             // Act
@@ -73,6 +73,48 @@ namespace Hostel.SUApplication.Tests.Commands
             _mockUow.Verify(u => u.BeginTransactionAsync(CancellationToken.None), Times.Once);
             _mockUow.Verify(u => u.CommitAsync(CancellationToken.None), Times.Once);
             _mockRepo.Verify(r => r.Update(It.IsAny<User>()), Times.Once);
+        }
+
+        [Fact(DisplayName = "Должен вернуть исключение, если адрес электронной почты уже существует")]
+        public async Task Handle_ShouldReturnException_WhenUserUpdateEmailExists()
+        {
+            // Arrange
+            var userId = Guid.NewGuid();
+
+            var request = new UpdateUserEmailCommand(new UserUpdateEmailRequest()
+            {
+                Id = userId,
+                Email = "test2@example.com"
+            });
+
+            _mockRepo.Setup(r => r.GetByIdAsync(userId, default)).ReturnsAsync(User.Create(
+                new EmailVo("test@example.com"),
+                new FullNameVo("John", "Doe", "Smith"),
+                "hashedPassword",
+                UserTypes.Standart,  // мокаем первый тип
+                UserStatuses.Active // мокаем первый статус
+            ));
+
+            _mockRepo.Setup(r => r.IsEmailExists("test2@example.com", It.IsAny<Guid>())).Returns(true);
+            _mockMapper.Setup(m => m.Map<UserResponse>(It.IsAny<User>())).Returns(new UserResponse
+            {
+                Id = userId,
+                Email = "test@example.com",
+                Firstname = "John",
+                Lastname = "Doe",
+                Patronymic = "Smith",
+                Type = "STANDART",
+                Status = "ACTIVE"
+            });
+
+            // Act
+            var result = await _handler.Handle(request, CancellationToken.None);
+
+            // Assert
+            Assert.False(result.IsSuccess);
+            Assert.Equal(DomainExceptionCodes.DomainResourceAlreadyExistsParam, result.Error.Code);
+            _mockUow.Verify(u => u.BeginTransactionAsync(CancellationToken.None), Times.Once);
+            _mockUow.Verify(u => u.RollbackAsync(CancellationToken.None), Times.Once);
         }
     }
 }
