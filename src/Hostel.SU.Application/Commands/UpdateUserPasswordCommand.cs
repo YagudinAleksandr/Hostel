@@ -59,6 +59,8 @@ namespace Hostel.SU.Application
 
                 user.ChangePassword(_passwordService.GetHashPassword(request.UserUpdate.NewPassword));
 
+                _repository.Update(user);
+
                 await _unitOfWork.CommitAsync(cancellationToken);
 
                 return Result.Success();
