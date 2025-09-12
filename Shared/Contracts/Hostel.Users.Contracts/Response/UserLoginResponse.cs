@@ -19,10 +19,5 @@
         /// Пользователь
         /// </summary>
         public UserResponse User { get; set; } = null!;
-
-        /// <summary>
-        /// Разрешения
-        /// </summary>
-        public ClaimDto Claims { get; set; } = null!;
     }
 }
