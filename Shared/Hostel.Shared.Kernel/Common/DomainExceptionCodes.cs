@@ -44,5 +44,30 @@
         /// Не валидное поле должно содержать
         /// </summary>
         public const string DomainValidateMustHaveFieldException = "domai.exception.field.validation.must_have";
+
+        /// <summary>
+        /// Ресурс не найден
+        /// </summary>
+        public const string DomainResourceNotFoundException = "domain.exception.resource_not_found";
+
+        /// <summary>
+        /// Ресурс не найден с параметром
+        /// </summary>
+        public const string DomainResourceNotFoundWithParam = "domain.exception.resource_not_found_param";
+
+        /// <summary>
+        /// Ресурс уже существует с параметрами
+        /// </summary>
+        public const string DomainResourceAlreadyExistsParam = "domain.exception.resource_already_exists_param";
+
+        /// <summary>
+        /// Ресурс уже существует
+        /// </summary>
+        public const string DomainResourceAlreadyExists = "domain.exception.resource_already_exists";
+
+        /// <summary>
+        /// Ошибка сервера
+        /// </summary>
+        public const string InternalServerError = "internal_server_error";
     }
 }

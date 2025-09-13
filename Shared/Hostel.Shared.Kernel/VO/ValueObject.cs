@@ -24,7 +24,7 @@
         /// <exception cref="DomainMaxLengthFieldException"></exception>
         protected static string SetCharField(string fieldNameCode, string value, int minLength, int maxLength)
         {
-            if (!string.IsNullOrEmpty(value))
+            if (string.IsNullOrEmpty(value))
                 throw new DomainRequiredFieldException(fieldNameCode);
 
             if (value.Length < minLength)
