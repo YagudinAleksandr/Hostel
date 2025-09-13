@@ -50,11 +50,11 @@ namespace Hostel.SU.Application
 
                 return Result.Success();
             }
-            catch(DomainException dex)
+            catch (DomainException dex)
             {
                 return Result.Failure(new Error(dex.ErrorCode, dex.Parameters));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
 
