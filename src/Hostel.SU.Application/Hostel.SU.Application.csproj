@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Contracts\Hostel.Users.Contracts\Hostel.Users.Contracts.csproj" />
+    <ProjectReference Include="..\..\Shared\Hostel.Shared.Application.Common\Hostel.Shared.Application.Common.csproj" />
+    <ProjectReference Include="..\Hostel.SU.Domain\Hostel.SU.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

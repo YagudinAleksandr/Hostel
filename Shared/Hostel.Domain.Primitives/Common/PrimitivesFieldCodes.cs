@@ -49,5 +49,20 @@
         /// Телефон
         /// </summary>
         public const string PrimitiveFieldPhone = "primitive.field.phone";
+
+        /// <summary>
+        /// Имя
+        /// </summary>
+        public const string PrimitiveFieldFirstName = "primitive.field.first_name";
+
+        /// <summary>
+        /// Фамилия
+        /// </summary>
+        public const string PrimitiveFieldLastName = "primitive.field.last_name";
+
+        /// <summary>
+        /// Отчество
+        /// </summary>
+        public const string PrimitiveFieldPatronymic = "primitive.field.patronymic";
     }
 }
