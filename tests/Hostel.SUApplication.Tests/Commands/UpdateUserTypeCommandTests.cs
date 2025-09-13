@@ -10,6 +10,9 @@ using Moq;
 
 namespace Hostel.SUApplication.Tests.Commands
 {
+    /// <summary>
+    /// Тесты на обработчик команды <see cref="UpdateUserTypeHandler"/>
+    /// </summary>
     public class UpdateUserTypeCommandTests
     {
         private readonly Mock<IUserRepository> _mockRepo;
@@ -63,7 +66,6 @@ namespace Hostel.SUApplication.Tests.Commands
             // Act
             var result = await _handler.Handle(request, CancellationToken.None);
 
-            // Assert
             // Assert
             Assert.True(result.IsSuccess);
             Assert.NotNull(result.Value);
