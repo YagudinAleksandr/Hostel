@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using FluentAssertions;
+using Hostel.Shared.Kernel;
 using Hostel.SU.Application;
 using Hostel.SU.Domain;
 using Moq;
@@ -91,6 +93,38 @@ namespace Hostel.SUApplication.Tests.Services
 
             // Assert
             Assert.True(result);
+        }
+
+        [Fact(DisplayName = "Отзыв токена, должен сохранить в репозиторий")]
+        public async Task ShouldSave_TokenRevokeAsync_Success()
+        {
+            // Arrange
+            string token = "refresh_token";
+            var refreshToken = new RefreshToken(token, DateTime.UtcNow.AddDays(1), Guid.NewGuid());
+
+            _mockRefreshTokenRepository.Setup(x => x.GetByTokenAsync(token, It.IsAny<CancellationToken>())).ReturnsAsync(refreshToken);
+
+            // Act
+            await _authService.RevokeTokenAsync(token, It.IsAny<CancellationToken>());
+
+            // Assert
+            _mockRefreshTokenRepository.Verify(x=>x.UpdateAsync(refreshToken, It.IsAny<CancellationToken>()), Times.Once);
+        }
+
+        [Fact(DisplayName = "Отзыв токена, вернуть исключение")]
+        public async Task ShouldSave_TokenRevokeAsync_ExceptionRised()
+        {
+            // Arrange
+            string token = "refresh_token";
+            var refreshToken = new RefreshToken(token, DateTime.UtcNow.AddDays(1), Guid.NewGuid());
+
+            _mockRefreshTokenRepository.Setup(x => x.GetByTokenAsync(token, It.IsAny<CancellationToken>())).ReturnsAsync(default(RefreshToken));
+
+            // Act
+            var act = async() => await _authService.RevokeTokenAsync(token, It.IsAny<CancellationToken>());
+
+            // Assert
+            await act.Should().ThrowAsync<DomainResourceNotFoundException>();
         }
     }
 }
