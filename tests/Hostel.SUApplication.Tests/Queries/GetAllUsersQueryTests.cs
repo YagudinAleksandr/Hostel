@@ -7,10 +7,12 @@ using Hostel.Users.Contracts.Response;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Hostel.Domain.Primitives;
-using Xunit;
 
 namespace Hostel.SUApplication.Tests.Queries
 {
+    /// <summary>
+    /// Тесты на запрос <see cref="GetAllUsersHandler"/>
+    /// </summary>
     public class GetAllUsersQueryTests
     {
         private readonly Mock<IUserRepository> _userRepositoryMock;
