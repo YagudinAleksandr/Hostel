@@ -22,6 +22,8 @@ namespace Hostel.SUDomain.Tests.Entities
             // Assert
             Assert.NotNull(user);
             Assert.Equal("Test", user.Name.FirstName);
+
+            await Task.CompletedTask;
         }
 
         [Fact(DisplayName = "Должен вернуть исключение об обязательном заполнении поля")]
@@ -35,6 +37,8 @@ namespace Hostel.SUDomain.Tests.Entities
 
             // Assert
             user.Should().Throw<DomainRequiredFieldException>();
+
+            await Task.CompletedTask;
         }
 
         [Fact(DisplayName = "Смена ФИО пользователя")]
@@ -49,6 +53,8 @@ namespace Hostel.SUDomain.Tests.Entities
             // Arrange
             Assert.NotNull(user);
             Assert.NotEqual("Test", user.Name.FirstName);
+
+            await Task.CompletedTask;
         }
 
         [Theory(DisplayName = "Невозможно изменить ФИО, если пользователь не активен")]
@@ -65,6 +71,8 @@ namespace Hostel.SUDomain.Tests.Entities
 
             // Assert
             res.Should().Throw<DomainInactiveUserException>();
+
+            await Task.CompletedTask;
         }
 
         [Fact(DisplayName = "Смена адрес электронной почты пользователя")]
@@ -79,6 +87,8 @@ namespace Hostel.SUDomain.Tests.Entities
             // Arrange
             Assert.NotNull(user);
             Assert.Equal("test@test2.local", user.Email.Value);
+
+            await Task.CompletedTask;
         }
 
         [Theory(DisplayName = "Невозможно изменить адрес электронной почты, если пользователь не активен")]
@@ -95,6 +105,8 @@ namespace Hostel.SUDomain.Tests.Entities
 
             // Assert
             res.Should().Throw<DomainInactiveUserException>();
+
+            await Task.CompletedTask;
         }
 
         [Fact(DisplayName = "Смена пароля пользователя")]
@@ -109,6 +121,8 @@ namespace Hostel.SUDomain.Tests.Entities
             // Arrange
             Assert.NotNull(user);
             Assert.Equal("123321", user.PasswordHash);
+
+            await Task.CompletedTask;
         }
 
         [Theory(DisplayName = "Невозможно изменить пароль, если пользователь не активен")]
@@ -125,6 +139,8 @@ namespace Hostel.SUDomain.Tests.Entities
 
             // Assert
             res.Should().Throw<DomainInactiveUserException>();
+
+            await Task.CompletedTask;
         }
 
         [Fact(DisplayName = "Смена типа пользователя")]
@@ -139,6 +155,8 @@ namespace Hostel.SUDomain.Tests.Entities
             // Arrange
             Assert.NotNull(user);
             Assert.Equal(ServicesUsersTypeCodes.Manager, user.Type.Code);
+
+            await Task.CompletedTask;
         }
 
         [Theory(DisplayName = "Невозможно изменить тип пользователя, если пользователь не активен")]
@@ -155,6 +173,8 @@ namespace Hostel.SUDomain.Tests.Entities
 
             // Assert
             res.Should().Throw<DomainInactiveUserException>();
+
+            await Task.CompletedTask;
         }
 
         [Fact(DisplayName = "Смена статуса пользователя")]
@@ -169,6 +189,8 @@ namespace Hostel.SUDomain.Tests.Entities
             // Arrange
             Assert.NotNull(user);
             Assert.Equal(ServicesUsersStatusesCodes.ServicesUsersUserStatusBlockedCode, user.Status.Code);
+
+            await Task.CompletedTask;
         }
 
         /// <summary>

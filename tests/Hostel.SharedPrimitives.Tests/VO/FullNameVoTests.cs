@@ -20,7 +20,9 @@ namespace Hostel.SharedPrimitives.Tests
             // Assert
             Assert.NotNull(fullname);
             Assert.Equal(firstname, fullname.FirstName);
-            Assert.Equal(lastname, fullname.LastName);
+            Assert.Equal(lastname, fullname.Lastname);
+
+            await Task.CompletedTask;
         }
 
         [Theory(DisplayName = "Должен вернуть исключение о заполнении обязательных полей")]
@@ -33,6 +35,8 @@ namespace Hostel.SharedPrimitives.Tests
 
             // Arrange
             fullname.Should().Throw<DomainRequiredFieldException>();
+
+            await Task.CompletedTask;
         }
 
         [Fact(DisplayName = "Должен вернуть исключение о максимальной длине полей")]
@@ -46,6 +50,8 @@ namespace Hostel.SharedPrimitives.Tests
 
             // Arrange
             fullname.Should().Throw<DomainMaxLengthFieldException>();
+
+            await Task.CompletedTask;
         }
 
         [Fact(DisplayName = "Короткое представление ФИО")]
@@ -62,6 +68,8 @@ namespace Hostel.SharedPrimitives.Tests
 
             // Assert
             Assert.Equal(result, shortName);
+
+            await Task.CompletedTask;
         }
     }
 }

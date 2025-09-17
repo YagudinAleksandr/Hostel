@@ -25,7 +25,7 @@ namespace Hostel.Domain.Primitives
         /// <summary>
         /// Фамилия
         /// </summary>
-        public string LastName { get; }
+        public string Lastname { get; }
 
         /// <summary>
         /// Отчество
@@ -41,7 +41,7 @@ namespace Hostel.Domain.Primitives
         public FullNameVo(string firstName, string lastName, string? patronimic)
         {
             FirstName = SetCharField(PrimitivesFieldCodes.PrimitiveFieldFirstName, firstName, MinLength, MaxLength);
-            LastName = SetCharField(PrimitivesFieldCodes.PrimitiveFieldLastName, lastName, MinLength, MaxLength);
+            Lastname = SetCharField(PrimitivesFieldCodes.PrimitiveFieldLastName, lastName, MinLength, MaxLength);
 
             if (!string.IsNullOrEmpty(patronimic))
                 Patronymic = SetCharField(PrimitivesFieldCodes.PrimitiveFieldPatronymic, patronimic, MinLength, MaxLength);
@@ -53,7 +53,7 @@ namespace Hostel.Domain.Primitives
         /// <returns>Строка ФИО</returns>
         public override string ToString()
         {
-            string fullName = $"{LastName} {FirstName}";
+            string fullName = $"{Lastname} {FirstName}";
             fullName += !string.IsNullOrEmpty(Patronymic) ? $" {Patronymic}" : string.Empty;
 
             return fullName;
@@ -65,7 +65,7 @@ namespace Hostel.Domain.Primitives
         /// <returns>Строка формата Иванов И.И.</returns>
         public string ShortVariationOfName()
         {
-            string fullShortName = $"{LastName} {FirstName[0]}.";
+            string fullShortName = $"{Lastname} {FirstName[0]}.";
 
             fullShortName += !string.IsNullOrEmpty(Patronymic) ? $" {Patronymic[0]}." : string.Empty;
 
@@ -75,7 +75,7 @@ namespace Hostel.Domain.Primitives
         /// <inheritdoc/>
         protected override IEnumerable<object> GetEqualityComponents()
         {
-            yield return LastName;
+            yield return Lastname;
             yield return FirstName;
             yield return Patronymic ?? string.Empty;
         }

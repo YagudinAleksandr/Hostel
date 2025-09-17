@@ -53,6 +53,8 @@ namespace Hostel.SU.Domain
             CreatedAt = createdAt;
             Status = ResetPasswordStatuses.Pending;
             ExpiredAt = expiredAt;
+
+            AddDomainEvent(new UserResetPasswordTokenCreatedEvent(UserId, Id));
         }
 
         /// <summary>

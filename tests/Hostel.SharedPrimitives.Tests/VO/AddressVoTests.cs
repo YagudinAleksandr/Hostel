@@ -24,6 +24,8 @@ namespace Hostel.SharedPrimitives.Tests
             Assert.Equal(city, address.City);
             Assert.Equal(street, address.Street);
             Assert.Equal(house, address.House);
+
+            await Task.CompletedTask;
         }
 
         [Theory(DisplayName = "Создание адреса должно вернуть исключение обязательных полей")]
@@ -36,6 +38,8 @@ namespace Hostel.SharedPrimitives.Tests
 
             // Assert
             address.Should().Throw<DomainRequiredFieldException>();
+
+            await Task.CompletedTask;
         }
 
         [Fact(DisplayName = "Создание адреса должно вернуть исключение о минимальной длине строки")]
@@ -46,6 +50,8 @@ namespace Hostel.SharedPrimitives.Tests
 
             // Assert
             address.Should().Throw<DomainMinLengthFieldException>();
+
+            await Task.CompletedTask;
         }
 
         [Fact(DisplayName = "Создание адреса должно вернуть исключение о максимальной длине строки")]
@@ -56,6 +62,8 @@ namespace Hostel.SharedPrimitives.Tests
 
             // Assert
             address.Should().Throw<DomainMaxLengthFieldException>();
+
+            await Task.CompletedTask;
         }
 
         [Fact(DisplayName = "Должно вернуть исключение о невалидном заполнении поля")]
@@ -66,6 +74,8 @@ namespace Hostel.SharedPrimitives.Tests
 
             // Assert
             address.Should().Throw<DomainValidationFieldException>();
+
+            await Task.CompletedTask;
         }
 
         [Theory(DisplayName = "Строковое представление адреса")]
@@ -81,6 +91,8 @@ namespace Hostel.SharedPrimitives.Tests
 
             // Assert
             Assert.Equal(result, addressString);
+
+            await Task.CompletedTask;
         }
     }
 }

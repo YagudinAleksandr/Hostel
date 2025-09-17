@@ -16,6 +16,8 @@ namespace Hostel.SUDomain.Tests.Entities
             // Assert
             Assert.NotNull(token);
             Assert.True(token.IsActive);
+
+            await Task.CompletedTask;
         }
 
         [Fact(DisplayName = "Проверка валидности токена")]
@@ -27,6 +29,8 @@ namespace Hostel.SUDomain.Tests.Entities
             // Assert
             Assert.NotNull(token);
             Assert.False(token.IsActive);
+
+            await Task.CompletedTask;
         }
 
         [Fact(DisplayName = "Отзыв токена")]
@@ -41,6 +45,8 @@ namespace Hostel.SUDomain.Tests.Entities
             // Assert
             Assert.NotNull(token);
             Assert.False(token.IsActive);
+
+            await Task.CompletedTask;
         }
     }
 }
