@@ -2,7 +2,6 @@
 using Hostel.Shared.Kernel;
 using Hostel.SU.Domain;
 using Hostel.Users.Contracts.Response;
-using System.Threading;
 
 namespace Hostel.SU.Application
 {
