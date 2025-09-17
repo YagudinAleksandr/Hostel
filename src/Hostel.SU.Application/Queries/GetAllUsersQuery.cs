@@ -1,97 +1,90 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Hostel.Shared.Application.Common;
 using Hostel.Shared.Kernel;
 using Hostel.SU.Domain;
 using Hostel.Users.Contracts.Response;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using System.Linq.Dynamic.Core;
 
 namespace Hostel.SU.Application
 {
     /// <summary>
-    /// Запрос на получение всех пользователей
+    /// Запрос на получение всех пользователей с фильтрацией
     /// </summary>
-    /// <param name="Filter">Фильтр для выборки</param>
-    public record GetAllUsersQuery(UnifiedFilter Filter) : IRequest<Result<PagedResult<UserResponse>>>;
+    /// <param name="Filter">Фильтр</param>
+    public record GetAllUsersQuery(QueryFilter Filter) : IRequest<Result<IReadOnlyList<UserResponse>>>;
 
     /// <summary>
-    /// Обработчик запроса <see cref="GetAllUsersQuery"/> на получение всех пользователей
+    /// Обработчик запроса на получение всех пользователей с фильтрацией
     /// </summary>
-    internal class GetAllUsersHandler : IRequestHandler<GetAllUsersQuery, Result<PagedResult<UserResponse>>>
+    internal class GetAllUsersHandler : IRequestHandler<GetAllUsersQuery, Result<IReadOnlyList<UserResponse>>>
     {
-        #region CTOR
-        /// <inheritdoc cref="IUserRepository"/>
-        private readonly IUserRepository _repository;
-
-        /// <inheritdoc cref="IMapper"/>
+        private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-
-        /// <inheritdoc cref="ILogger"/>
         private readonly ILogger<GetAllUsersHandler> _logger;
 
-        public GetAllUsersHandler(IUserRepository repository, IMapper mapper, ILogger<GetAllUsersHandler> logger)
+        public GetAllUsersHandler(IUserRepository userRepository, IMapper mapper, ILogger<GetAllUsersHandler> logger)
         {
-            _repository = repository;
+            _userRepository = userRepository;
             _mapper = mapper;
             _logger = logger;
         }
-        #endregion
 
-        /// <inheritdoc/>
-        public async Task<Result<PagedResult<UserResponse>>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
+        public async Task<Result<IReadOnlyList<UserResponse>>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
         {
             try
             {
-                var userQuery = await _repository.GetAllAsync(cancellationToken);
+                var filter = request.Filter;
+                var query = await _userRepository.GetAllAsync(cancellationToken);
 
-                if (userQuery == null)
-                    return Result<PagedResult<UserResponse>>.Success(new PagedResult<UserResponse>(Array.Empty<UserResponse>(), 0, 0, 0));
-
-                var totalCount = userQuery.Count();
-
-                if (request.Filter.SortOptions.Any())
+                // Поиск по Email или Name (если задан Search)
+                if (!string.IsNullOrWhiteSpace(filter.Search))
                 {
-                    foreach (var sortOption in request.Filter.SortOptions)
+                    query = query.Where(u =>
+                        u.Email.Value.Contains(filter.Search) ||
+                        u.Name.ToString().Contains(filter.Search));
+                }
+
+                // Динамические фильтры
+                if (filter.Filters != null)
+                {
+                    foreach (var kvp in filter.Filters)
                     {
-                        userQuery = userQuery.OrderByDynamic(
-                            sortOption.Field,
-                            sortOption.Direction.ToLower() == "asc"
-                        );
+                        if (kvp.Key.Equals("Status", StringComparison.OrdinalIgnoreCase))
+                            query = query.Where(u => u.Status.DisplayName == kvp.Value);
+                        else if (kvp.Key.Equals("Type", StringComparison.OrdinalIgnoreCase))
+                            query = query.Where(u => u.Type.DisplayName == kvp.Value);
                     }
                 }
-                else
+
+                // Сортировка
+                if (!string.IsNullOrWhiteSpace(filter.SortBy))
                 {
-                    userQuery = userQuery.OrderBy(r => r.Name);
-                }
-
-                userQuery = userQuery
-                    .Skip(request.Filter.Skip)
-                    .Take(request.Filter.Take);
-
-                var items = userQuery.ToList();
-
-                var itemsDtos = _mapper.Map<List<UserResponse>>(items);
-
-                IQueryable<dynamic> projectedQuery;
-                if (request.Filter.SelectFields.Any())
-                {
-                    projectedQuery = userQuery.ApplyDynamicProjection(request.Filter.SelectFields);
+                    var sortDirection = filter.SortDirection?.ToLower() == "desc" ? "descending" : "ascending";
+                    query = query.OrderBy($"{filter.SortBy} {sortDirection}");
                 }
                 else
                 {
-                    projectedQuery = userQuery.Select(r => (dynamic)r);
+                    query = query.OrderBy(u => u.CreatedAt);
                 }
 
-                return Result<PagedResult<UserResponse>>.Success(new PagedResult<UserResponse>(itemsDtos,
-                    totalCount,
-                    request.Filter.PageNumber,
-                    request.Filter.PageSize));
+                // Пагинация
+                var skip = (filter.Page - 1) * filter.PageSize;
+                query = query.Skip(skip).Take(filter.PageSize);
+
+                var users = query.ToList();
+                var response = _mapper.Map<IReadOnlyList<UserResponse>>(users);
+                return Result<IReadOnlyList<UserResponse>>.Success(response);
+            }
+            catch (DomainException dex)
+            {
+                return Result<IReadOnlyList<UserResponse>>.Failure(new Error(dex.ErrorCode, dex.Parameters));
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-
-                return Result<PagedResult<UserResponse>>.Failure(new Error(DomainExceptionCodes.InternalServerError, [ex.Message]));
+                return Result<IReadOnlyList<UserResponse>>.Failure(new Error(DomainExceptionCodes.InternalServerError, [ex.Message]));
             }
         }
     }
