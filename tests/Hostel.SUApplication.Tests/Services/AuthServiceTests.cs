@@ -212,5 +212,40 @@ namespace Hostel.SUApplication.Tests.Services
             // Assert
             await result.Should().ThrowAsync<DomainInactiveUserException>();
         }
+
+        [Fact(DisplayName = "Успешное обновление токена")]
+        public async Task ShouldReturnTokenResponse_RefreshTokenAsync_Success()
+        {
+            // Arrange
+            string email = "test@test.com";
+            string refreshToken = "refreshToken";
+            var user = User.Create(new EmailVo(email), new Domain.Primitives.FullNameVo("Тест", "Тест", ""), "password", UserTypes.Standart, UserStatuses.Active);
+            var token = new RefreshToken(refreshToken, DateTime.UtcNow.AddDays(10), user.Id);
+
+            _mockUserReposytory.Setup(x => x.GetByIdAsync(user.Id, It.IsAny<CancellationToken>())).ReturnsAsync(user);
+            _mockRefreshTokenRepository.Setup(x => x.GetByTokenAsync(refreshToken, It.IsAny<CancellationToken>())).ReturnsAsync(token);
+            _mockTokenGeneratorService.Setup(x => x.GenerateAccessToken(user.Id, user.Type)).Returns("access_token");
+            _mockTokenGeneratorService.Setup(x => x.GenerateRefreshToken(user.Id)).Returns("access_token");
+            _mockTokenGeneratorService.Setup(x => x.RefreshTokenLifetimeMinutes).Returns(30);
+            _mockMapper.Setup(m => m.Map<UserResponse>(It.IsAny<User>())).Returns(new UserResponse
+            {
+                Id = user.Id,
+                Email = email,
+                Firstname = "John",
+                Lastname = "Doe",
+                Patronymic = "Smith",
+                Type = "ADMINISTRATOR",
+                Status = "ACTIVE"
+            });
+
+            // Act
+            var result = await _authService.RefreshTokenAsync(refreshToken, It.IsAny<CancellationToken>());
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.NotNull(result.User);
+            Assert.Equal(email, result.User.Email);
+            _mockRefreshTokenRepository.Verify(x => x.AddAsync(It.IsAny<RefreshToken>(), It.IsAny<CancellationToken>()), Times.Once);
+        }
     }
 }
