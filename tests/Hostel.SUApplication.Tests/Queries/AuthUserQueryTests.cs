@@ -80,7 +80,6 @@ namespace Hostel.SUApplication.Tests.Queries
             var result = await _handler.Handle(request, CancellationToken.None);
 
             // Assert
-            // Assert
             Assert.True(result.IsSuccess);
             Assert.NotNull(result.Value);
             _mockTokenRefreshRepository.Verify(u => u.AddAsync(It.IsAny<RefreshToken>(), It.IsAny<CancellationToken>()), Times.Once);
