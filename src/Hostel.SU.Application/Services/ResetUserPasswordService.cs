@@ -57,6 +57,11 @@ namespace Hostel.SU.Application
 
                 await _unitOfWork.CommitAsync(cancellationToken);
             }
+            catch (DomainException)
+            {
+                await _unitOfWork.RollbackAsync(cancellationToken);
+                throw;
+            }
             catch (Exception ex)
             {
                 await _unitOfWork.RollbackAsync(cancellationToken);
@@ -85,6 +90,11 @@ namespace Hostel.SU.Application
 
                 await _unitOfWork.CommitAsync(cancellationToken);
             }
+            catch (DomainException)
+            {
+                await _unitOfWork.RollbackAsync(cancellationToken);
+                throw;
+            }
             catch (Exception ex)
             {
                 await _unitOfWork.RollbackAsync(cancellationToken);
@@ -99,16 +109,21 @@ namespace Hostel.SU.Application
             {
                 var tokens = await _tokenRepository.GetAllAsync(cancellationToken);
 
-                tokens.Where(x=>x.ExpiredAt > DateTime.UtcNow 
+                tokens.Where(x => x.ExpiredAt > DateTime.UtcNow
                     && (x.Status != ResetPasswordStatuses.Expired || x.Status != ResetPasswordStatuses.Used)).ToList();
 
-                foreach(var token in tokens)
+                foreach (var token in tokens)
                 {
                     token.MarkAsExpired();
                     _tokenRepository.Update(token);
                 }
 
                 await _unitOfWork.CommitAsync(cancellationToken);
+            }
+            catch (DomainException)
+            {
+                await _unitOfWork.RollbackAsync(cancellationToken);
+                throw;
             }
             catch (Exception ex)
             {
